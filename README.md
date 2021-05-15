@@ -1,14 +1,16 @@
 # テーブル設計
 
 ## usersテーブル
-| column     | Type   | Options     |
-| ---------- | ------ | ----------- |
-| nickname   | string | null: false |
-| email      | string | null: false |
-| password   | string | null: false |
-| name_kanji | string | null: false |
-| name_kana  | string | null: false |
-| birthday   | date   | null: false |
+| column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| last_name_kanji    | string | null: false               |
+| first_name_kanji   | string | null: false               |
+| last_name_kana     | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 - has_many :items
@@ -20,11 +22,11 @@
 | ------------------- | -----------| ------------------------------ |
 | item_name           | string     | null: false                    |
 | item_description    | text       | null: false                    |
-| category            | string     | null: false                    |
-| item_status         | string     | null: false                    |
-| shipping_fee_burden | string     | null: false                    |
-| shipping_area       | string     | null: false                    |
-| day_to_ship         | string     | null: false                    |
+| category            | integer    | null: false                    |
+| item_status         | integer    | null: false                    |
+| shipping_fee_burden | integer    | null: false                    |
+| shipping_area       | integer    | null: false                    |
+| day_to_ship         | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | user                | references | null: false, foreign_key: true |
 
@@ -34,20 +36,27 @@
 
 
 ## purchasesテーブル
-| column           | Type       | Options                        |
-| -----------------| ---------- | ------------------------------ |
-| card_information | integer    | null: false                    |
-| expiration_date  | date       | null: false                    |
-| cvc              | integer    | null: false                    |
-| postal_code      | string     | null: false                    |
-| prefectures      | string     | null: false                    |
-| municipality     | string     | null: false                    |
-| address          | string     | null: false                    |
-| building_name    | integer    |                                |
-| tel              | integer    | null: false                    |
-| user             | references | null: false, foreign_key: true |
-| items            | references | null: false, foreign_key: true |
+| column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| postal_code         | string     | null: false                    |
+| prefectures         | integer    | null: false                    |
+| municipality        | string     | null: false                    |
+| address             | string     | null: false                    |
+| building_name       | string     |                                |
+| tel                 | string     | null: false                    |
+| purchase_history_id | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
 - belongs_to :item
+- belongs_to :purchase_history
+
+
+## purchase_historysテーブル
+| column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
+
+### Association
+- has_one :purchase
