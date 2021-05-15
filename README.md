@@ -16,6 +16,7 @@
 - has_many :items
 - has_many :purchase_histories
 
+
 ## itemsテーブル(image除く)
 | column                 | Type       | Options                        |
 | ---------------------- | -----------| ------------------------------ |
@@ -30,7 +31,7 @@
 | user                   | references | null: false, foreign_key: true |
 
 ### Association
-- has_many :purchase_histories
+- has_one :purchase_history
 - belongs_to :user
 
 
