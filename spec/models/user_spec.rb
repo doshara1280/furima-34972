@@ -10,96 +10,96 @@ RSpec.describe User, type: :model do
       expect(@user).to be_valid
     end
     it 'nicknameが空では登録できない' do
-      @user.nickname = ""
+      @user.nickname = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Nickname can't be blank")
     end
     it 'emailが空では登録できない' do
-      @user.email = ""
+      @user.email = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
     it 'emailが「@」を含まないと登録できない' do
-      @user.email = "aaagmail"
+      @user.email = 'aaagmail'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Email is invalid")
+      expect(@user.errors.full_messages).to include('Email is invalid')
     end
     it 'emailは重複して保存できない' do
-      @user.email = "aaa@gmail"
+      @user.email = 'aaa@gmail'
       @user.save
       another_user = FactoryBot.build(:user)
-      another_user.email = "aaa@gmail"
+      another_user.email = 'aaa@gmail'
       another_user.valid?
-      expect(another_user.errors.full_messages).to include("Email has already been taken")
+      expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
     it 'passwordが空では登録できない' do
-      @user.password = ""
+      @user.password = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Password can't be blank")
     end
     it 'passwordが6文字以上でないと登録できない' do
-      @user.password = "aaaaa"
+      @user.password = 'aaaaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
     it 'passwordが半角英数字混合でないと登録できない' do
-      @user.password = "aaaaaa"
+      @user.password = 'aaaaaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password is invalid")
+      expect(@user.errors.full_messages).to include('Password is invalid')
     end
     it 'password_confirmationが空では登録できない' do
-      @user.password_confirmation = ""
+      @user.password_confirmation = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it 'passwordとpassword_confirmationが不一致では登録できない' do
-      @user.password = "aaaaaa"
-      @user.password_confirmation = "bbbbbb"
+      @user.password = 'aaaaaa'
+      @user.password_confirmation = 'bbbbbb'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it 'last_name_kanjiが空だと登録できない' do
-      @user.last_name_kanji = ""
+      @user.last_name_kanji = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kanji can't be blank")
     end
     it 'first_name_kanjiが空だと登録できない' do
-      @user.first_name_kanji = ""
+      @user.first_name_kanji = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kanji can't be blank")
     end
     it 'last_name_kanaが空だと登録できない' do
-      @user.last_name_kana = ""
+      @user.last_name_kana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana can't be blank")
     end
     it 'first_name_kanaが空だと登録できない' do
-      @user.first_name_kana = ""
+      @user.first_name_kana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana can't be blank")
     end
     it 'last_name_kanjiが全角（漢字・ひらがな・カタカナ）でないと登録できない' do
-      @user.last_name_kanji = "aaaaaa"
+      @user.last_name_kanji = 'aaaaaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kanji is invalid")
+      expect(@user.errors.full_messages).to include('Last name kanji is invalid')
     end
     it 'first_name_kanjiが全角（漢字・ひらがな・カタカナ）でないと登録できない' do
-      @user.first_name_kanji = "aaaaaa"
+      @user.first_name_kanji = 'aaaaaa'
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name kanji is invalid")
+      expect(@user.errors.full_messages).to include('First name kanji is invalid')
     end
     it 'last_name_kanaが全角カタカナでないと登録できない' do
-      @user.last_name_kana = "ああああああ"
+      @user.last_name_kana = 'ああああああ'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kana is invalid")
+      expect(@user.errors.full_messages).to include('Last name kana is invalid')
     end
     it 'first_name_kanaが全角カタカナでないと登録できない' do
-      @user.first_name_kana = "ああああああ"
+      @user.first_name_kana = 'ああああああ'
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name kana is invalid")
+      expect(@user.errors.full_messages).to include('First name kana is invalid')
     end
     it 'birthdayが空では登録できない' do
-      @user.birthday = ""
+      @user.birthday = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Birthday can't be blank")
     end
