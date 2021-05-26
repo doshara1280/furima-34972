@@ -58,20 +58,30 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it '販売価格の情報が半角数字以外だと出品できない' do
+      it '販売価格が全角文字では出品できない' do
+        @item.price = '１１１１'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is invalid. Price must be 300-9999999 yen and half-width characters')
+      end
+      it '販売価格が半角英数混合では出品できない' do
+        @item.price = '11aa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is invalid. Price must be 300-9999999 yen and half-width characters')
+      end
+      it '販売価格が半角英語では出品できない' do
         @item.price = 'aaa'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price is not a number')
+        expect(@item.errors.full_messages).to include('Price is invalid. Price must be 300-9999999 yen and half-width characters')
       end
       it '販売価格が300円未満だと出品できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
+        expect(@item.errors.full_messages).to include('Price is invalid. Price must be 300-9999999 yen and half-width characters')
       end
       it '販売価格が9999999円より高いと出品できない' do
         @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
+        expect(@item.errors.full_messages).to include('Price is invalid. Price must be 300-9999999 yen and half-width characters')
       end
     end
   end
