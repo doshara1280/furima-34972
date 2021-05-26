@@ -12,7 +12,9 @@ class Item < ApplicationRecord
     validates :image
     validates :name, length: { maximum: 40 }
     validates :description, length: { maximum: 1000 }
-    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price,
+              numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
+                              message: 'is invalid. Price must be 300-9999999 yen and half-width characters' }
     with_options numericality: { other_than: 1, message: "can't be blank" } do
       validates :category_id
       validates :status_id
