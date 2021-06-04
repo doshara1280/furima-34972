@@ -35,7 +35,7 @@
 - belongs_to :user
 
 
-## street_addressesテーブル
+## ordersテーブル
 | column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
 | postal_code      | string     | null: false                    |
@@ -57,6 +57,6 @@
 | item   | references | null: false, foreign_key: true |
 
 ### Association
-- has_one :street_address
+- has_one :order
 - belongs_to :user
 - belongs_to :item
