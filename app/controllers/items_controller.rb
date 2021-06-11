@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_top
-    redirect_to root_path unless current_user.id == @item.user.id
+    redirect_to root_path unless current_user.id == @item.user.id && !@item.purchase_history.present?
   end
 
   def set_item
