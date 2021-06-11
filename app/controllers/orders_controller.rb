@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_top  
-    if current_user.id == @item.user.id
+    if current_user.id == @item.user.id || @item.purchase_history
       redirect_to root_path
     end
   end
