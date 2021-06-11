@@ -23,21 +23,21 @@ class OrdersController < ApplicationController
   private
 
   def purchase_history_order_params
-    params.require(:purchase_history_order).permit(:postal_code, :shipping_area_id, :municipality, :address, :building_name, :tel).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
+    params.require(:purchase_history_order).permit(:postal_code, :shipping_area_id, :municipality, :address, :building_name, :tel).merge(
+      user_id: current_user.id, item_id: @item.id, token: params[:token]
+    )
   end
 
   def item_params_get
     @item = Item.find(params[:item_id])
   end
 
-  def move_to_top  
-    if current_user.id == @item.user.id || @item.purchase_history
-      redirect_to root_path
-    end
+  def move_to_top
+    redirect_to root_path if current_user.id == @item.user.id || @item.purchase_history
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_history_order_params[:token],
