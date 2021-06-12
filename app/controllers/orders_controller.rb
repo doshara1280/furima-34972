@@ -4,7 +4,6 @@ class OrdersController < ApplicationController
   before_action :move_to_top, only: [:index]
 
   def index
-    @orders = Order.new
     @purchase_history_order = PurchaseHistoryOrder.new
   end
 
@@ -33,7 +32,7 @@ class OrdersController < ApplicationController
   end
 
   def move_to_top
-    redirect_to root_path if current_user.id == @item.user.id || @item.purchase_history
+    redirect_to root_path if current_user.id == @item.user.id || @item.purchase_history.present?
   end
 
   def pay_item
