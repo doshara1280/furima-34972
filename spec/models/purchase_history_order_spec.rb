@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PurchaseHistoryOrder, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.create(:item)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
     sleep(0.1)
-    @purchase_history_order = FactoryBot.build(:purchase_history_order, user_id: @user.id, item_id: @item.id)
+    @purchase_history_order = FactoryBot.build(:purchase_history_order, user_id: user.id, item_id: item.id)
   end
 
   describe '商品購入機能' do
@@ -69,6 +69,16 @@ RSpec.describe PurchaseHistoryOrder, type: :model do
         @purchase_history_order.token = nil
         @purchase_history_order.valid?
         expect(@purchase_history_order.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_id（購入者）が空だと購入できない' do
+        @purchase_history_order.user_id = nil
+        @purchase_history_order.valid?
+        expect(@purchase_history_order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_id(購入商品)が空だと購入できない' do
+        @purchase_history_order.item_id = nil
+        @purchase_history_order.valid?
+        expect(@purchase_history_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
